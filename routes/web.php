@@ -16,3 +16,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/galery', function(){
+    return view('galery');
+});
+
+
+Route::post('add/{id}', function ($id) {
+    return $id;
+});
+
+Route::put('edit/{id}', function ($id) {
+    return $id;
+});
+
+Route::delete('delete/{id}', function ($id) {
+    return $id;
+});
