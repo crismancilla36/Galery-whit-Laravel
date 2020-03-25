@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('galery');
 });
 
 Route::get('/galery', function(){
     return view('galery');
-});
+})->name('galery');
 
 
 Route::post('add/{id}', function ($id) {

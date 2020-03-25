@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-<div class="container">
-    @yield('content')
-</div>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo"> @yield('title')  </a>
+        </div>
+    </nav>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
