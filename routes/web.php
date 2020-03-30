@@ -14,22 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('galery');
+    return redirect()->route('galery.index');
 });
 
-Route::get('/galery', function(){
-    return view('galery');
-})->name('galery');
+Route::resource('galery', 'PictureController');
 
-
-Route::post('add/{id}', function ($id) {
-    return $id;
-});
-
-Route::put('edit/{id}', function ($id) {
-    return $id;
-});
-
-Route::delete('delete/{id}', function ($id) {
-    return $id;
-});
