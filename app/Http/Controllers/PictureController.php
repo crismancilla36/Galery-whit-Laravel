@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PictureFormRequest;
 use App\Picture;
 use Illuminate\Http\Request;
 
@@ -34,13 +35,16 @@ class PictureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PictureFormRequest $request)
     {
         $picture = new Picture();
         $picture->title = $request->input('title');
         $picture->user = $request->input('user');
         $picture->description = $request->input('description');
-        $picture->save();
+        if($request->hasFile('image')){
+            $picture->image = $request->file('image')->store('uploads', 'public');
+            $picture->save();
+        }
         return redirect()->route('galery.index');
     }
 
@@ -74,12 +78,22 @@ class PictureController extends Controller
      * @param  \App\Picture  $picture
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PictureFormRequest $request, $id)
     {
+        $nuevos = request()->except(['_token', '_method', 'action']);
         $picture = Picture::find($id);
-        $picture->title = $request->input('title');
-        $picture->user = $request->input('user');
-        $picture->description = $request->input('description');
+        if($request->hasFile('image')){
+            $old = $picture->image;
+            $nuevos['image'] = $request->file('image')->store('uploads', 'public');
+            unlink($old);
+            $picture->update($nuevos);
+            $picture->image= $nuevos['image'];
+        }
+        else{
+            $picture->title = $request->input('title');
+            $picture->user = $request->input('user');
+            $picture->description = $request->input('description');
+        }
         $picture->save();
         return redirect()->route('galery.index');
     }
@@ -93,7 +107,9 @@ class PictureController extends Controller
     public function destroy(Request $request)
     {
         $picture = Picture::find($request->input('id'));
-        $picture ->delete();
+        if(unlink($picture->image)){
+            $picture ->delete();
+        }
         return redirect()->route('galery.index');
     }
 }

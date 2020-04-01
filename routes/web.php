@@ -17,5 +17,6 @@ Route::get('/', function () {
     return redirect()->route('galery.index');
 });
 
-Route::resource('galery', 'PictureController');
+Route::resource('galery', 'PictureController')
+    ->only(['index', 'destroy', 'store', 'edit', 'update', 'create']);
 

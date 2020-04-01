@@ -17,7 +17,7 @@
       <div class="col s8 m4">
         <div class="card">
           <div class="card-image">
-            <img src="http://blogs.agu.org/georneys/files/2012/12/IMG_7273-1024x682.jpg">
+            <img src="{{$picture->image}}">
             <span class="card-title" style="width: 100%">
                 {{$picture->title}}
                 <div class="right">

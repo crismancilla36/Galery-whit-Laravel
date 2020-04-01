@@ -10,28 +10,47 @@
 
 @section('content')
 <div class="row" style="padding: 1em">
-    <form class="col s12 z-depth-1" method="post" action="{{ route('galery.store')}}">
+    @if ($errors->any())
+        <blockquote class="alert alert-danger col s12">
+        <i class="large material-icons col pink-text 1em">error</i>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </blockquote>
+    @endif
+    <form class="col s12 z-depth-1" method="post" enctype="multipart/form-data" action="{{ route('galery.store')}}">
       @csrf
       <h4 class="header pink-text text-lighten-1">New picture</h4>
       <div class="row">
         <div class="input-field col s6">
-          <input id="title" type="text" class="validate"name='title'>
-          <label for="title">Title</label>
+            <input name="title" type="text" class="validate" autofocus>
+            <label for="Title">Title</label>
         </div>
         <div class="input-field col s6">
-          <input id="user" type="text" class="validate" name='user'>
+          <input type="text" class="validate" name='user'>
           <label for="user">Author</label>
         </div>
       </div>
       <div class="input-field col s12">
-        <textarea id="description" name='description' class="materialize-textarea" data-length="80"></textarea>
+        <textarea name='description' class="materialize-textarea" data-length="80"></textarea>
         <label for="description">Description</label>
       </div>
-      <div class="input-field col s12">
+    <div class="file-field input-field">
+        <div class="btn">
+        <span>File</span>
+        <input type="file" name='image' multiple>
+        </div>
+        <div class="file-path-wrapper">
+        <input class="file-path validate" placeholder="Upload one or more files" name='image'>
+        </div>
+    </div>
+    <div class="input-field col s12">
         <button class="btn  right " style="background: #EE6E73" type="submit" name="action">Submit
-          <i class="material-icons right">send</i>
+        <i class="material-icons right">send</i>
         </button>
-      </div>
+    </div>
     </form>
   </div>
 @endsection
